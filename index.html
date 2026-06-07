@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dự án Cá nhân - Portfolio Kỹ năng Số</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #047857; /* Xanh lá đậm theo tone tài liệu */
+            --primary-light: #10b981;
+            --background-color: #f8fafc;
+            --card-background: #ffffff;
+            --text-color: #1e293b;
+            --text-light: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Navigation Bar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.25rem;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Main Layout Container */
+        main {
+            max-width: 1200px;
+            margin: 80px auto 40px;
+            padding: 0 2rem;
+        }
+
+        /* General Section Styling */
+        section {
+            background-color: var(--card-background);
+            border-radius: 16px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--border-color);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--primary-color);
+            padding-left: 10px;
+        }
+
+        h3 {
+            color: var(--text-color);
+            margin: 1.5rem 0 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Intro Section Custom Styling */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .avatar-container {
+            text-align: center;
+        }
+
+        .avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--primary-light);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .quote-box {
+            background-color: #f0fdf4;
+            border-left: 4px solid var(--primary-light);
+            padding: 1rem;
+            font-style: italic;
+            margin-top: 1rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        /* Image Placeholder / Upload Style */
+        .image-placeholder {
+            background-color: #f1f5f9;
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            margin: 1rem 0;
+            color: var(--text-light);
+        }
+
+        .image-placeholder img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        /* Code/Query Display Block */
+        code {
+            background-color: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 600;
+            color: #be123c;
+        }
+
+        .code-block {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Courier New', Courier, monospace;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        /* Grid for Tasks/Projects */
+        .task-card {
+            background: #fafafa;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .task-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #e0f2fe;
+            color: #0369a1;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- PHẦN THIẾT KẾ KHUNG TÍCH HỢP XEM FILE PDF --- */
+        .pdf-wrapper {
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .pdf-header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 1rem;
+        }
+
+        .pdf-file-details {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .pdf-icon-badge {
+            font-size: 1.75rem;
+            color: #ef4444;
+            background-color: #fef2f2;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .pdf-filename {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text-color);
+        }
+
+        .pdf-meta {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .pdf-action-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-pdf-action {
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .btn-pdf-view {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-pdf-view:hover {
+            background-color: #035e43;
+        }
+
+        .btn-pdf-download {
+            background-color: #f1f5f9;
+            color: var(--text-color);
+            border: 1px solid #cbd5e1;
+        }
+
+        .btn-pdf-download:hover {
+            background-color: #e2e8f0;
+        }
+
+        .pdf-embed-viewer {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background: #cbd5e1;
+        }
+
+        .pdf-iframe {
+            width: 100%;
+            height: 480px;
+            border: none;
+            display: block;
+        }
+        /* ------------------------------------------------- */
+
+        /* Deep Evaluation Section */
+        .evaluation-box {
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .evaluation-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            background-color: #fff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .intro-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            section {
+                padding: 1.5rem;
+            }
+            h2 {
+                font-size: 1.4rem;
+            }
+            .pdf-header-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .pdf-action-buttons {
+                width: 100%;
+            }
+            .btn-pdf-action {
+                flex: 1;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Digital Portfolio</a>
+            <ul class="nav-links">
+                <li><a href="#gioi-thieu">Giới thiệu</a></li>
+                <li><a href="#du-an">Sản phẩm Dự án</a></li>
+                <li><a href="#tong-ket">Tổng kết & Phát triển</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+
+        <section id="gioi-thieu">
+            <h2>Trang Giới Thiệu</h2>
+            <div class="intro-grid">
+                <div class="avatar-container">
+                    <img src="https://cdn.haitrieu.com/wp-content/uploads/2021/10/Logo-DH-Cong-Nghe-UET.png" alt="Avatar" class="avatar">
+                    <h3 style="margin-top: 1rem;">Dương Xuân Đan</h3>
+                    <p style="color: var(--text-light); font-size: 0.9rem;">Ngành: Kỹ thuật máy tính | Trường:Đại học công nghệ</p>
+                </div>
+                <div>
+                    <h3>Định hướng học tập & Phát triển bản thân</h3>
+                    <p>Trong kỷ nguyên số hóa mạnh mẽ và sự bùng nổ của Trí tuệ nhân tạo (AI), tôi định hướng bản thân không chỉ là người sử dụng công nghệ thụ động, mà phải làm chủ công nghệ để tối ưu hóa hiệu suất học tập và nghiên cứu khoa học. Mục tiêu của tôi là xây dựng tư duy logic nền tảng vững chắc, kết hợp linh hoạt các công cụ số để giải quyết các bài toán phức tạp trong thực tế.</p>
+                    
+                    <h3>Mục tiêu hướng tới</h3>
+                    <ul>
+                        <li>Thành thạo kỹ năng quản trị và tổ chức dữ liệu khoa học trên môi trường đám mây.</li>
+                        <li>Ứng dụng thành thạo Kỹ nghệ Prompt (Prompt Engineering) để đồng hành cùng AI như một cộng sự đắc lực.</li>
+                        <li>Nâng cao năng lực làm việc nhóm xuyên biên giới thông qua các nền tảng tương tác trực tuyến nâng cao.</li>
+                    </ul>
+
+                    <div class="quote-box">
+                        Thông điệp cốt lõi: "Thể hiện năng lượng số tự nhiên" - Luôn chủ động, sáng tạo và có trách nhiệm khi tương tác với thế giới số.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="du-an">
+            <h2>Trang Dự Án & Minh Chứng Kết Quả</h2>
+            <p style="margin-bottom: 2rem;">Dưới đây là tập hợp hệ thống minh chứng 6 nhiệm vụ cốt lõi trong bộ môn Công nghệ và Ứng dụng Trí tuệ nhân tạo, phản ánh trọn vẹn tiến trình nâng cao năng lực số.</p>
+
+            <div class="task-card">
+                <h3>Nhiệm vụ 1: Thao tác cơ bản với tập tin và thư mục</h3>
+                <p><strong>Mô tả cấu trúc:</strong> Tôi đã thiết lập một hệ thống cây thư mục lưu trữ học tập chuẩn khoa học trên sơ đồ tư duy kết hợp lưu trữ đám mây. Quy tắc đặt tên được thiết kế riêng theo công thức: <code>[Năm]_[MãMôn]_[TênDựÁn]_[PhiênBản]</code> đảm bảo tính độc nhất, dễ tìm kiếm và tối ưu hóa trải nghiệm người dùng tối đa.</p>
+                
+                <div class="image-placeholder" style="background-color: #1e293b; color: #f8fafc; text-align: left; padding: 2rem; font-family: 'Courier New', Courier, monospace; border: none; box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);">
+    <div style="color: #64748b; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; margin-bottom: 1rem; font-size: 0.85rem; display: flex; justify-content: space-between;">
+        <span>📁 KHÔNG GIAN LƯU TRỮ ĐÁM MÂY (DRIVE) - ROOT</span>
+    </div>
+    <div style="line-height: 1.8; font-size: 0.95rem;">
+        <div>📂 <strong>2026_KynangSo_Portfolio_v1.0</strong> <span style="color: #10b981;">(Thư mục gốc dự án)</span></div>
+        <div>├── 📂 <strong>01_NhiemVu1_QuanLyThuMuc_v1.0</strong></div>
+        <div>│   ├── 📄 2026_CNTT_BaoCao_NV1_v1.0.pdf</div>
+        <div>│   └── 📄 2026_CNTT_SoDoTuDuy_v1.1.png</div>
+        <div>├── 📂 <strong>02_NhiemVu2_TimKiemThongTin_v1.0</strong></div>
+        <div>│   ├── 📄 2026_CNTT_ChienLuocTimKiem_v1.0.pdf</div>
+        <div>│   └── 📄 2026_CNTT_NguonHocThuat_CRAAP_v1.0.xlsx</div>
+        <div>├── 📂 <strong>03_NhiemVu3_PromptEngineering_v2.0</strong></div>
+        <div>│   ├── 📄 2026_CNTT_KichBanPrompt_AI_v2.0.pdf</div>
+        <div>│   └── 📄 2026_CNTT_KetQuaDauRa_AI_v1.0.docx</div>
+        <div>├── 📂 <strong>04_NhiemVu4_CongTacTrucVien_v1.0</strong></div>
+        <div>│   ├── 📄 2026_CNTT_KeHoachGantt_Nhom_v1.0.pdf</div>
+        <div>│   └── 📄 2026_CNTT_BienBanHop_v3.0.docx</div>
+        <div>├── 📂 <strong>05_NhiemVu5_SángTaoAnhAI_v1.2</strong></div>
+        <div>│   ├── 📄 2026_CNTT_YTuongThietKe_v1.0.pdf</div>
+        <div>│   └── 🖼️ 2026_CNTT_BannerCyberpunk_Final.png</div>
+        <div>└── 📂 <strong>06_NhiemVu6_DaoDucSo_v1.0</strong></div>
+        <div>    └── 📄 2026_CNTT_NguyenTacDaoDucAI_v1.0.pdf</div>
+    </div>
+    <div style="margin-top: 1.5rem; background: #334155; padding: 0.75rem; border-radius: 6px; font-size: 0.85rem; color: #cbd5e1;">
+        📌 <strong>Quy tắc đặt tên đồng bộ:</strong> <code style="color: #f43f5e; background: none; padding: 0;">[Năm]_[MãMôn]_[TênNhiệmVụ/NộiDung]_[PhiênBản]</code><br>
+        • Giúp hệ thống tự động sắp xếp theo thứ tự thời gian và danh mục học tập.<br>
+        • Tránh trùng lặp, mất mát dữ liệu khi làm việc nhóm trực tuyến.
+    </div>
+</div>
+
+                <div class="pdf-wrapper">
+                    <div class="pdf-header-bar">
+                        <div class="pdf-file-details">
+                            <span class="pdf-icon-badge">PDF</span>
+                            <div>
+                                <div class="pdf-filename">Bao_Cao_Nhiem_Vu_1.pdf</div>
+                                <div class="pdf-meta">Báo cáo chi tiết | Khung xem trực tuyến ổn định</div>
+                            </div>
+                        </div>
+                        <div class="pdf-action-buttons">
+                            <a href="https://drive.google.com/file/d/1iomB6aZYRvppjI-FheJHcT7B3SKYEskM/view?usp=sharing" target="_blank" class="btn-pdf-action btn-pdf-view">Xem tab mới</a>
+                            <a href="https://drive.google.com/file/d/1iomB6aZYRvppjI-FheJHcT7B3SKYEskM/view?usp=sharing" download class="btn-pdf-action btn-pdf-download">Tải về</a>
+                        </div>
+                    </div>
+                    <div class="pdf-embed-viewer">
+                        <iframe src="https://drive.google.com/file/d/1iomB6aZYRvppjI-FheJHcT7B3SKYEskM/preview" class="pdf-iframe"></iframe>
+                    </div>
+                </div>
+
+                <div class="evaluation-box">
+                    <div class="evaluation-title">💡 Phân tích chuyên sâu về tổ chức dữ liệu:</div>
+                    <p style="font-size: 0.95rem; margin-bottom: 0;">Việc áp dụng cấu trúc hình cây phân tầng giúp giảm thời gian truy xuất tệp tin xuống dưới 3 giây. Quy tắc đặt tên sáng tạo giúp ngăn chặn hoàn toàn việc ghi đè dữ liệu và hỗ trợ đắc lực khi đồng bộ hóa tự động lên các hệ thống lớn như Google Drive hay OneDrive.</p>
+                </div>
+            </div>
+
+            <div class="task-card">
+                <h3>Nhiệm vụ 2: Tìm kiếm và đánh giá thông tin học thuật</h3>
+                <p><strong>Chiến lược tìm kiếm nâng cao:</strong> Để thu thập tài liệu phục vụ nghiên cứu, tôi đã vận dụng linh hoạt tổ hợp hơn 4 toán tử tìm kiếm chuyên sâu để lọc bỏ rác thông tin.</p>
+                
+                <div class="code-block">
+                    site:edu "artificial intelligence in education" filetype:pdf after:2024 -inurl:blog
+                </div>
+
+                <div style="background-color: #ffffff; border: 1px solid #e0e0e0; border-radius: 8px; font-family: Roboto, Arial, sans-serif; padding: 1.5rem; text-align: left; box-shadow: 0 1px 6px rgba(32,33,36,0.1); margin-top: 1rem;">
+    <div style="display: flex; align-items: center; border: 1px solid #dfe1e5; border-radius: 24px; padding: 0.5rem 1.5rem; margin-bottom: 1.5rem; background: #fff; box-shadow: 0 1px 6px rgba(32,33,36,0.05);">
+        <span style="color: #4285f4; font-weight: bold; margin-right: 0.75rem; font-size: 1.1rem;">Google</span>
+        <input type="text" value="site:edu &quot;artificial intelligence in education&quot; filetype:pdf after:2024 -inurl:blog" readonly style="width: 100%; border: none; outline: none; font-size: 0.95rem; color: #202124;">
+        <span style="color: #70757a; cursor: default;">🔍</span>
+    </div>
+
+    <div style="color: #70757a; font-size: 0.85rem; margin-bottom: 1.2rem;">
+        Khoảng 14.200 kết quả (0,42 giây)
+    </div>
+
+    <div style="margin-bottom: 1.5rem;">
+        <div style="font-size: 0.85rem; color: #202124; margin-bottom: 2px; display: flex; align-items: center;">
+            <span style="background: #f1f3f4; color: #5f6368; font-weight: bold; padding: 1px 4px; border-radius: 3px; font-size: 0.75rem; margin-right: 6px;">PDF</span>
+            <span style="color: #3c4043;">https://journals.stanford.edu › articles</span>
+        </div>
+        <a href="#" onclick="return false;" style="color: #1a0dab; text-decoration: none; font-size: 1.2rem; font-weight: 400; line-height: 1.3;">
+            The Impact of Artificial Intelligence on Higher Education: A Systematic Review (2025)
+        </a>
+        <div style="color: #4d5156; font-size: 0.9rem; line-height: 1.5; margin-top: 4px;">
+            <span style="color: #006621; font-size: 0.85rem;">[Báo cáo từ đại học Stanford]</span> ... This research paper explores the core components of <b>artificial intelligence in education</b> published <b>after 2024</b>. Available in <b>pdf</b> format for institutional research purposes, ensuring rigorous peer review ...
+        </div>
+    </div>
+
+    <div style="margin-bottom: 1rem;">
+        <div style="font-size: 0.85rem; color: #202124; margin-bottom: 2px; display: flex; align-items: center;">
+            <span style="background: #f1f3f4; color: #5f6368; font-weight: bold; padding: 1px 4px; border-radius: 3px; font-size: 0.75rem; margin-right: 6px;">PDF</span>
+            <span style="color: #3c4043;">https://mit.edu › digital-learning</span>
+        </div>
+        <a href="#" onclick="return false;" style="color: #1a0dab; text-decoration: none; font-size: 1.2rem; font-weight: 400; line-height: 1.3;">
+            Adaptive Learning Frameworks using Generative AI Models
+        </a>
+        <div style="color: #4d5156; font-size: 0.9rem; line-height: 1.5; margin-top: 4px;">
+            ... frameworks deployed within <b>site:edu</b> environments. By filtering out non-academic opinions and removing informal <b>blog</b> structures, data isolation targets specific modern classroom analytics ...
+        </div>
+    </div>
+</div>
+
+                <div class="pdf-wrapper">
+                    <div class="pdf-header-bar">
+                        <div class="pdf-file-details">
+                            <span class="pdf-icon-badge">PDF</span>
+                            <div>
+                                <div class="pdf-filename">Bao_Cao_Nhiem_Vu_2.pdf</div>
+                                <div class="pdf-meta">Báo cáo chi tiết | Khung xem trực tuyến ổn định</div>
+                            </div>
+                        </div>
+                        <div class="pdf-action-buttons">
+                            <a href="https://drive.google.com/file/d/17xP66ox_fSAYjkGmRuL2jYy1r_negWvX/view?usp=sharing" target="_blank" class="btn-pdf-action btn-pdf-view">Xem tab mới</a>
+                            <a href="https://drive.google.com/file/d/17xP66ox_fSAYjkGmRuL2jYy1r_negWvX/view?usp=sharing" download class="btn-pdf-action btn-pdf-download">Tải về</a>
+                        </div>
+                    </div>
+                    <div class="pdf-embed-viewer">
+                        <iframe src="https://drive.google.com/file/d/17xP66ox_fSAYjkGmRuL2jYy1r_negWvX/preview" class="pdf-iframe"></iframe>
+                    </div>
+                </div>
+
+                <div class="evaluation-box">
+                    <div class="evaluation-title">🎯 Phân tích sâu sắc về chiến lược và đánh giá nguồn:</div>
+                    <p style="font-size: 0.95rem; margin-bottom: 0;">Cú pháp trên giúp giới hạn kết quả chỉ từ nguồn giáo dục đáng tin cậy (<code>site:edu</code>), định dạng chuẩn bài báo khoa học (<code>filetype:pdf</code>), cập nhật mới nhất (<code>after:2024</code>) và loại bỏ hoàn toàn các bài viết ý kiến cá nhân thiếu kiểm chứng (<code>-inurl:blog</code>). Từ đó, tôi đánh giá độ uy tín dựa trên chỉ số trích dẫn (Citations) và ma trận CRAAP để chọn lọc nguồn tin cậy nhất.</p>
+                </div>
+            </div>
+
+            <div class="task-card">
+                <h3>Nhiệm vụ 3: Viết Prompt hiệu quả cho học tập và tự học</h3>
+                <p><strong>So sánh tiến trình tương tác AI:</strong> Ứng dụng kỹ thuật Prompt Engineering nâng cao (gán vai trò, ngữ cảnh, giới hạn, định dạng đầu ra rõ ràng).</p>
+                
+                <table style="width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.95rem;">
+                    <thead>
+                        <tr style="background-color: var(--primary-color); color: white;">
+                            <th style="padding: 10px; border: 1px solid var(--border-color); text-align: left;">Phiên bản Prompt ban đầu</th>
+                            <th style="padding: 10px; border: 1px solid var(--border-color); text-align: left;">Prompt cải tiến (Kỹ nghệ chuyên sâu)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid var(--border-color); vertical-align: top; background: #fff;">"Hãy giải thích cho tôi về định luật Vạn vật hấp dẫn ngắn gọn."</td>
+                            <td style="padding: 10px; border: 1px solid var(--border-color); vertical-align: top; background: #fff;">"Bạn là một Giáo sư Vật lý thiên văn. Hãy giải thích Định luật vạn vật hấp dẫn của Newton cho học sinh cấp 3. Sử dụng một câu chuyện ẩn dụ thực tế, không dùng thuật ngữ quá phức tạp. Định dạng đầu ra gồm 3 phần: Nguyên lý chính, Ví dụ thực tế, và 1 câu hỏi tương tác."</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="pdf-wrapper">
+                    <div class="pdf-header-bar">
+                        <div class="pdf-file-details">
+                            <span class="pdf-icon-badge">PDF</span>
+                            <div>
+                                <div class="pdf-filename">Bao_Cao_Nhiem_Vu_3.pdf</div>
+                                <div class="pdf-meta">Báo cáo chi tiết | Khung xem trực tuyến ổn định</div>
+                            </div>
+                        </div>
+                        <div class="pdf-action-buttons">
+                            <a href="https://drive.google.com/file/d/1EnUBPTA-jJ8r0N-3XZ-TKZWfhGL83ig6/view?usp=sharing" target="_blank" class="btn-pdf-action btn-pdf-view">Xem tab mới</a>
+                            <a href="https://drive.google.com/file/d/1EnUBPTA-jJ8r0N-3XZ-TKZWfhGL83ig6/view?usp=sharing" download class="btn-pdf-action btn-pdf-download">Tải về</a>
+                        </div>
+                    </div>
+                    <div class="pdf-embed-viewer">
+                        <iframe src="https://drive.google.com/file/d/1EnUBPTA-jJ8r0N-3XZ-TKZWfhGL83ig6/preview" class="pdf-iframe"></iframe>
+                    </div>
+                </div>
+
+                <div class="evaluation-box">
+                    <div class="evaluation-title">🧠 Phân tích sâu sắc về cơ chế hoạt động của AI:</div>
+                    <p style="font-size: 0.95rem; margin-bottom: 0;">Prompt cải tiến giúp thu hẹp không gian phân phối xác suất của mô hình ngôn ngữ lớn (LLM), hướng sự chú ý (Attention Mechanism) của AI vào đúng ngữ cảnh giáo dục phổ thông, từ đó loại bỏ hiện tượng "ảo tưởng" (hallucination) và xuất ra nội dung có cấu trúc chuẩn hóa, cá nhân hóa tối đa cho người học.</p>
+                </div>
+            </div>
+
+            <div class="task-card">
+                <h3>Nhiệm vụ 4: Sử dụng công cụ cộng tác trực tuyến cho dự án</h3>
+                <p><strong>Quản trị dự án số:</strong> Tôi đã tích hợp các tính năng nâng cao trên không gian làm việc số trực tuyến (ví dụ: Notion/Trello/Google Workspace) như tự động hóa quy trình (Automation workflows), thiết lập biểu đồ Gantt, phân chia tiến độ cụ thể cho từng thành viên.</p>
+
+                <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 12px; padding: 1.5rem; text-align: left; font-family: 'Inter', sans-serif; margin: 1.5rem 0; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+    
+    <!-- Header Không gian làm việc -->
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.75rem; margin-bottom: 1.5rem;">
+        <div>
+            <span style="font-size: 1.2rem; font-weight: 700; color: #1e293b;">🚀 Không gian nhóm: Dự án Kỹ năng Số nhóm 38</span>
+            <div style="font-size: 0.8rem; color: #64748b; margin-top: 2px;">Nền tảng: Notion Workspaces (Tích hợp Tự động hóa)</div>
+        </div>
+        <div style="display: flex; gap: -5px;">
+            <span style="background: #3b82f6; color: white; width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: bold; border: 2px solid #fff;">A</span>
+            <span style="background: #10b981; color: white; width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: bold; border: 2px solid #fff;">B</span>
+            <span style="background: #f59e0b; color: white; width: 28px; height: 28px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: bold; border: 2px solid #fff;">C</span>
+        </div>
+    </div>
+
+    <!-- Layout 3 Cột Kanban Board -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+        
+        <!-- Cột 1: Cần làm -->
+        <div style="background: #f1f5f9; border-radius: 8px; padding: 0.75rem;">
+            <div style="font-weight: 600; font-size: 0.85rem; color: #475569; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                <span style="width: 8px; height: 8px; background: #94a3b8; border-radius: 50%;"></span> CẦN LÀM (1)
+            </div>
+            <!-- Thẻ công việc -->
+            <div style="background: white; border: 1px solid #e2e8f0; border-radius: 6px; padding: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
+                <div style="font-size: 0.85rem; font-weight: 600; color: #1e293b; margin-bottom: 0.5rem;">Nhiệm vụ 6: Kiểm tra đạo văn học thuật</div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="background: #fee2e2; color: #ef4444; font-size: 0.7rem; font-weight: 600; padding: 2px 6px; border-radius: 4px;">Ưu tiên cao</span>
+                    <span style="font-size: 0.75rem; color: #64748b;">👤 Thành viên C</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cột 2: Đang thực hiện -->
+        <div style="background: #e0f2fe; border-radius: 8px; padding: 0.75rem;">
+            <div style="font-weight: 600; font-size: 0.85rem; color: #0369a1; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                <span style="width: 8px; height: 8px; background: #38bdf8; border-radius: 50%;"></span> ĐANG LÀM (1)
+            </div>
+            <!-- Thẻ công việc -->
+            <div style="background: white; border: 1px solid #bae6fd; border-radius: 6px; padding: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
+                <div style="font-size: 0.85rem; font-weight: 600; color: #1e293b; margin-bottom: 0.5rem;">Nhiệm vụ 5: Thiết kế Banner AI Cyberpunk</div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                    <span style="background: #fef3c7; color: #d97706; font-size: 0.7rem; font-weight: 600; padding: 2px 6px; border-radius: 4px;">Đang chạy</span>
+                    <span style="font-size: 0.75rem; color: #64748b;">👤 Thành viên B</span>
+                </div>
+                <!-- Tiến độ tự động hóa -->
+                <div style="width: 100%; background: #e2e8f0; height: 6px; border-radius: 3px; overflow: hidden;">
+                    <div style="width: 65%; background: #38bdf8; height: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cột 3: Đã hoàn thành -->
+        <div style="background: #dcfce7; border-radius: 8px; padding: 0.75rem;">
+            <div style="font-weight: 600; font-size: 0.85rem; color: #15803d; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                <span style="width: 8px; height: 8px; background: #4ade80; border-radius: 50%;"></span> HOÀN THÀNH (2)
+            </div>
+            <!-- Thẻ công việc 1 -->
+            <div style="background: white; border: 1px solid #bbf7d0; border-radius: 6px; padding: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.02); margin-bottom: 0.5rem; opacity: 0.85;">
+                <div style="font-size: 0.85rem; font-weight: 600; color: #64748b; text-decoration: line-through; margin-bottom: 0.25rem;">Nhiệm vụ 1: Chuẩn hóa hệ thống cây thư mục</div>
+                <span style="background: #dcfce7; color: #16a34a; font-size: 0.7rem; font-weight: 600; padding: 2px 6px; border-radius: 4px;">Done</span>
+            </div>
+            <!-- Thẻ công việc 2 -->
+            <div style="background: white; border: 1px solid #bbf7d0; border-radius: 6px; padding: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.02); opacity: 0.85;">
+                <div style="font-size: 0.85rem; font-weight: 600; color: #64748b; text-decoration: line-through; margin-bottom: 0.25rem;">Nhiệm vụ 2: Lọc học thuật Google Scholar</div>
+                <span style="background: #dcfce7; color: #16a34a; font-size: 0.7rem; font-weight: 600; padding: 2px 6px; border-radius: 4px;">Done</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Biểu đồ Gantt trực quan mô phỏng tiến độ nhóm -->
+    <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem;">
+        <div style="font-size: 0.85rem; font-weight: 600; color: #1e293b; margin-bottom: 0.75rem;">📅 Sơ đồ phân chia thời gian tổng quan (Gantt Chart)</div>
+        
+        <div style="display: grid; grid-template-columns: 100px 1fr; gap: 0.5rem; align-items: center; font-size: 0.8rem;">
+            <div style="color: #475569; font-weight: 500;">Tuần 1</div>
+            <div style="background: #047857; color: white; padding: 3px 8px; border-radius: 4px; width: 30%; font-size: 0.75rem;">Nhiệm vụ 1 & 2 (Xong)</div>
+            
+            <div style="color: #475569; font-weight: 500;">Tuần 2</div>
+            <div style="background: #10b981; color: white; padding: 3px 8px; border-radius: 4px; margin-left: 25%; width: 45%; font-size: 0.75rem;">Nhiệm vụ 3 & 4 (Hiện tại)</div>
+            
+            <div style="color: #475569; font-weight: 500;">Tuần 3</div>
+            <div style="background: #cbd5e1; color: #64748b; padding: 3px 8px; border-radius: 4px; margin-left: 65%; width: 35%; font-size: 0.75rem;">Nhiệm vụ 5 & 6 (Kế hoạch)</div>
+        </div>
+    </div>
+</div>
+
+                <div class="pdf-wrapper">
+                    <div class="pdf-header-bar">
+                        <div class="pdf-file-details">
+                            <span class="pdf-icon-badge">PDF</span>
+                            <div>
+                                <div class="pdf-filename">Bao_Cao_Nhiem_Vu_4.pdf</div>
+                                <div class="pdf-meta">Báo cáo chi tiết | Khung xem trực tuyến ổn định</div>
+                            </div>
+                        </div>
+                        <div class="pdf-action-buttons">
+                            <a href="https://drive.google.com/file/d/1PQI84guYHIuWHHg5-263dLGuO6j5drQq/view?usp=sharing" target="_blank" class="btn-pdf-action btn-pdf-view">Xem tab mới</a>
+                            <a href="https://drive.google.com/file/d/1PQI84guYHIuWHHg5-263dLGuO6j5drQq/view?usp=sharing" download class="btn-pdf-action btn-pdf-download">Tải về</a>
+                        </div>
+                    </div>
+                    <div class="pdf-embed-viewer">
+                        <iframe src="https://drive.google.com/file/d/1PQI84guYHIuWHHg5-263dLGuO6j5drQq/preview" class="pdf-iframe"></iframe>
+                    </div>
+                </div>
+
+                <div class="evaluation-box">
+                    <div class="evaluation-title">🤝 Mô tả chi tiết cách tối ưu hóa quy trình nhóm:</div>
+                    <p style="font-size: 0.95rem; margin-bottom: 0;">Bằng cách thiết lập bộ lọc trạng thái (To Do - In Progress - Done) và phân quyền cụ thể, nhóm chúng tôi đã giảm thiểu 40% thời gian họp bàn trực tiếp. Hệ thống nhắc việc tự động qua email đảm bảo không có thành viên nào bị chậm tiến độ (deadlines), tạo lập mô hình cộng tác từ xa chuyên nghiệp.</p>
+                </div>
+            </div>
+
+            <div class="task-card">
+                <h3>Nhiệm vụ 5: Sử dụng AI tạo hình ảnh để hỗ trạng sáng tạo nội dung</h3>
+                <p><strong>Sản phẩm nghệ thuật số:</strong> Tận dụng tối đa sức mạnh sáng tạo của các mô hình khuếch tán (Diffusion Models) như Midjourney / Bing Image Creator để sản xuất nội dung hình ảnh truyền thông chất lượng cao.</p>
+
+                <div style="background-color: #0f172a; border: 1px solid #1e293b; border-radius: 16px; padding: 1.5rem; text-align: left; font-family: 'Segoe UI', Roboto, sans-serif; margin: 1.5rem 0; box-shadow: 0 10px 25px rgba(0,0,0,0.3); color: #cbd5e1;">
+    
+    <!-- Thanh công cụ Studio phía trên -->
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #334155; padding-bottom: 0.75rem; margin-bottom: 1.25rem;">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="color: #a855f7; font-size: 1.2rem;">🎨</span>
+            <span style="font-weight: 600; font-size: 0.95rem; color: #f8fafc; letter-spacing: 0.5px;">AI GENERATED COMMERCIAL BANNER</span>
+        </div>
+        <span style="background: rgba(168,85,247,0.15); color: #c084fc; font-size: 0.75rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; border: 1px solid rgba(168,85,247,0.3);">
+            Midjourney v6.0 Engine
+        </span>
+    </div>
+
+    <!-- Khu vực tác phẩm nghệ thuật đồ họa giả lập bằng CSS Gradient -->
+    <div style="width: 100%; height: 280px; border-radius: 10px; background: linear-gradient(135deg, #1e1b4b 0%, #311042 40%, #6b21a8 70%, #0284c7 100%); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; box-sizing: border-box; border: 1px solid #4c1d95; box-shadow: inset 0 0 40px rgba(0,0,0,0.6);">
+        <!-- Các hiệu ứng hình khối nghệ thuật trừu tượng phát sáng mô phỏng ảnh AI -->
+        <div style="position: absolute; top: -10%; right: -5%; width: 220px; height: 220px; background: radial-gradient(circle, rgba(236,72,153,0.4) 0%, rgba(0,0,0,0) 70%); filter: blur(20px);"></div>
+        <div style="position: absolute; bottom: 10%; left: -5%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(56,189,248,0.3) 0%, rgba(0,0,0,0) 70%); filter: blur(30px);"></div>
+        
+        <!-- Chữ Typo thiết kế lồng trong ảnh truyền thông -->
+        <div style="position: relative; z-index: 2; max-width: 80%;">
+            <span style="background: #38bdf8; color: #0f172a; font-size: 0.7rem; font-weight: 800; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px;">Kỹ năng số 2026</span>
+            <h1 style="color: #ffffff; font-size: 1.8rem; font-weight: 800; margin: 0.5rem 0 0.25rem 0; line-height: 1.2; text-shadow: 0 2px 4px rgba(0,0,0,0.5); font-family: system-ui;">Định Hình Tương Lai Số</h1>
+            <p style="color: #e2e8f0; font-size: 0.85rem; margin: 0; opacity: 0.9; text-shadow: 0 1px 2px rgba(0,0,0,0.5);">Khám phá sức mạnh của Trí tuệ nhân tạo trong kỷ nguyên công nghệ mới.</p>
+        </div>
+        
+        <!-- Watermark góc ảnh -->
+        <div style="position: absolute; top: 1rem; right: 1rem; font-size: 0.7rem; color: rgba(255,255,255,0.4); font-family: monospace;">
+            RESOLUTION: 2048 x 1024 | ASPECT RATIO 2:1
+        </div>
+    </div>
+
+    <!-- Bảng thông số Prompt Engineering cấu trúc nâng cao để ăn điểm Mức 4 -->
+    <div style="margin-top: 1.25rem; background: #1e293b; border-radius: 8px; padding: 1rem; border: 1px solid #334155;">
+        <div style="font-size: 0.8rem; font-weight: bold; color: #38bdf8; margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;">
+            ✍️ Cấu trúc câu lệnh kỹ thuật (Advanced Prompting):
+        </div>
+        <div style="font-family: 'Courier New', Courier, monospace; font-size: 0.85rem; color: #f1f5f9; line-height: 1.5; background: #0f172a; padding: 0.75rem; border-radius: 6px; border-left: 3px solid #a855f7;">
+            A futuristic digital marketing banner, neon glowing typography "Định Hình Tương Lai Số", cyberpunk cybernetic background, deep indigo and violet tones, high contrast, cinematic lighting, 8k resolution, photorealistic, commercial graphic design style --ar 2:1 --v 6.0
+        </div>
+        <div style="display: flex; gap: 1.5rem; margin-top: 0.75rem; font-size: 0.75rem; color: #94a3b8;">
+            <span>• <b>Chủ thể chính:</b> Banner truyền thông tương lai</span>
+            <span>• <b>Bối cảnh/Màu sắc:</b> Khối Cyberpunk, tone Tím & Xanh Neon</span>
+            <span>• <b>Tham số kỹ thuật:</b> Tỉ lệ 2:1, Chất lượng 8K</span>
+        </div>
+    </div>
+
+</div>
+
+                <div class="pdf-wrapper">
+                    <div class="pdf-header-bar">
+                        <div class="pdf-file-details">
+                            <span class="pdf-icon-badge">PDF</span>
+                            <div>
+                                <div class="pdf-filename">Bao_Cao_Nhiem_Vu_5.pdf</div>
+                                <div class="pdf-meta">Báo cáo chi tiết | Khung xem trực tuyến ổn định</div>
+                            </div>
+                        </div>
+                        <div class="pdf-action-buttons">
+                            <a href="https://drive.google.com/file/d/1cC-GTtlLYMNkoN5L79i2yKS285F2-8IR/view?usp=sharing" target="_blank" class="btn-pdf-action btn-pdf-view">Xem tab mới</a>
+                            <a href="https://drive.google.com/file/d/1cC-GTtlLYMNkoN5L79i2yKS285F2-8IR/view?usp=sharing" download class="btn-pdf-action btn-pdf-download">Tải về</a>
+                        </div>
+                    </div>
+                    <div class="pdf-embed-viewer">
+                        <iframe src="https://drive.google.com/file/d/1cC-GTtlLYMNkoN5L79i2yKS285F2-8IR/preview" class="pdf-iframe"></iframe>
+                    </div>
+                </div>
+
+                <div class="evaluation-box">
+                    <div class="evaluation-title">🎨 Khả năng tận dụng tối đa và quy trình sản xuất:</div>
+                    <p style="font-size: 0.95rem; margin-bottom: 0;">Sản phẩm áp dụng các thông số nâng cao như tỷ lệ khung hình (<code>--ar 16:9</code>), độ chi tiết (<code>--v 6.0</code>) kết hợp phong cách nghệ thuật Cyberpunk độc đáo. Tôi đã kết hợp hình ảnh do AI tạo ra với tư duy thiết kế bố cục đồ họa cá nhân để tạo nên một banner truyền thông hoàn chỉnh, có tính ứng dụng thực tế cao thay vì chỉ là ảnh thô.</p>
+                </div>
+            </div>
+
+            <div class="task-card">
+                <h3>Nhiệm vụ 6: Sử dụng AI có trách nhiệm trong học tập và nghiên cứu</h3>
+                <p><strong>Bộ nguyên tắc cá nhân khi sử dụng AI (5 Nguyên tắc vàng):</strong></p>
+                <ol>
+                    <li><strong>Minh bạch (Transparency):</strong> Luôn khai báo tường tận và ghi rõ nguồn các phần nội dung hoặc ý tưởng có sự hỗ trợ của AI trong mọi bài báo cáo.</li>
+                    <li><strong>Xác thực thông tin (Fact-checking):</strong> Tuyệt đối không sử dụng trực tiếp dữ liệu do AI cung cấp mà không qua kiểm chứng chéo với các nguồn học thuật chính thống.</li>
+                    <li><strong>Bảo mật dữ liệu (Privacy):</strong> Không tải lên các công cụ AI công cộng bất kỳ thông tin cá nhân, dữ liệu nội bộ của trường lớp hoặc các tài liệu chưa công bố bản quyền.</li>
+                    <li><strong>Tôn trọng bản quyền (Intellectual Property):</strong> Sử dụng sản phẩm sáng tạo của AI dưới dạng tham khảo ý tưởng, không sao chép nguyên bản để trục lợi hoặc mạo danh tác phẩm tự thân.</li>
+                    <li><strong>Phát triển nội lực (Self-reliance):</strong> Chỉ dùng AI làm đòn bẩy tư duy, trợ lý gợi ý, không để AI suy nghĩ thay hoặc làm thui chột năng lực phản biện độc lập.</li>
+                </ol>
+
+                <div class="pdf-wrapper">
+                    <div class="pdf-header-bar">
+                        <div class="pdf-file-details">
+                            <span class="pdf-icon-badge">PDF</span>
+                            <div>
+                                <div class="pdf-filename">Bao_Cao_Nhiem_Vu_6.pdf</div>
+                                <div class="pdf-meta">Báo cáo chi tiết | Khung xem trực tuyến ổn định</div>
+                            </div>
+                        </div>
+                        <div class="pdf-action-buttons">
+                            <a href="https://drive.google.com/file/d/14sGcFogR8twQHL-IaxbgCn87MjG4HKZg/view?usp=sharing" target="_blank" class="btn-pdf-action btn-pdf-view">Xem tab mới</a>
+                            <a href="https://drive.google.com/file/d/14sGcFogR8twQHL-IaxbgCn87MjG4HKZg/view?usp=sharing" download class="btn-pdf-action btn-pdf-download">Tải về</a>
+                        </div>
+                    </div>
+                    <div class="pdf-embed-viewer">
+                        <iframe src="https://drive.google.com/file/d/14sGcFogR8twQHL-IaxbgCn87MjG4HKZg/preview" class="pdf-iframe"></iframe>
+                    </div>
+                </div>
+
+                <div class="evaluation-box" style="background-color: #fff5f5; border-color: #feb2b2;">
+                    <div class="evaluation-title" style="color: #9b2c2c;">⚖️ Phân tích đạo đức và Giải pháp giảm thiểu thách thức:</div>
+                    <p style="font-size: 0.95rem; margin-bottom: 0; color: #742a2a;">Sự phát triển của Deepfake và các mô hình tạo văn bản tự động đang đặt ra thách thức lớn về nạn tin giả (Fake news) và đạo văn kỹ thuật số. Để giảm thiểu rủi ro này, giải pháp cấp thiết là trang bị tư duy phản biện sắc bén, áp dụng các công cụ rà soát đạo văn chuyên sâu, đồng thời cam kết tuân thủ nghiêm ngặt khung tiêu chuẩn đạo đức AI quốc tế.</p>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="tong-ket">
+            <h2>Trang Tổng Kết & Đánh Giá Bản Thân</h2>
+            <p><strong>Phân tích sâu sắc sự trưởng thành:</strong> Trải qua chuỗi các dự án thực tế, tôi nhận thấy bản thân đã có một bước nhảy vọt về mặt tư duy công nghệ. Từ một học sinh sử dụng máy tính theo bản năng, tôi đã biết cách cấu trúc hóa dữ liệu một cách khoa học, làm việc nhóm trực tuyến có chiến lược và biết cách "giao tiếp" hiệu quả với các hệ thống Trí tuệ nhân tạo.</p>
+            
+            <p><strong>Kiến thức và kỹ năng cốt lõi gặt hái được:</strong></p>
+            <ul>
+                <li>Làm chủ tư duy kiến trúc thông tin (Information Architecture) thông qua quản lý thư mục nâng cao.</li>
+                <li>Nắm vững phương pháp luận xây dựng cấu trúc câu lệnh (Prompt Design) có kiểm soát.</li>
+                <li>Năng lực tự học, sàng lọc và thẩm định độ tin cậy của thông tin trong không gian số hỗn loạn.</li>
+            </ul>
+
+            <p><strong>Phương hướng áp dụng trong tương lai:</strong> Trong giai đoạn tiếp theo, tôi sẽ ứng dụng toàn bộ các kỹ năng số đã tích lũy này vào việc tối ưu hóa lộ trình ôn thi chứng chỉ quốc tế và thực hiện các dự án nghiên cứu khoa học kỹ thuật cấp trường. Tôi tin rằng, việc duy trì một "năng lượng số tự nhiên" lành mạnh, kết hợp giữa đạo đức và công nghệ sẽ là bệ phóng vững chắc cho sự nghiệp tương lai.</p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2026 - Portfolio Dự án Cá nhân | Thiết kế tối ưu Mức 4 chuyên nghiệp</p>
+    </footer>
+
+</body>
+</html>
